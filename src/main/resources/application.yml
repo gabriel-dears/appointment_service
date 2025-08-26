@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: appointment_service
+  datasource:
+    url: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_URL}
+    username: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_USER}
+    password: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_PASS}
+    driver-class-name: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_DRIVER}
+  jpa:
+    hibernate:
+      ddl-auto: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_DDL_AUTO}
+    properties:
+      hibernate:
+        dialect: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_DIALECT}
+    show-sql: true
