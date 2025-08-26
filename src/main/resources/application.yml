@@ -13,3 +13,5 @@ spring:
       hibernate:
         dialect: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_DIALECT}
     show-sql: true
+
+user-service-url: http://user-service:8080
