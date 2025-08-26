@@ -1,9 +1,11 @@
 package com.hospital_app.appointment_service.application.port.out.user_service;
 
+import java.util.UUID;
+
 public interface UserServiceClientPort {
 
-    boolean isPatientValid(Long patientId);
+    boolean isPatientValid(UUID patientId);
 
-    boolean isDoctorValid(Long doctorId);
+    boolean isDoctorValid(UUID doctorId);
 
 }

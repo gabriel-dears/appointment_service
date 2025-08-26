@@ -1,4 +1,4 @@
-package com.hospital_app.appointment_service.infra.config;
+package com.hospital_app.appointment_service.infra.config.api;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

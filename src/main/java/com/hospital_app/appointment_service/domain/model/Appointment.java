@@ -6,8 +6,8 @@ import java.util.UUID;
 public class Appointment {
 
     private UUID id;
-    private Long patientId;
-    private Long doctorId;
+    private UUID patientId;
+    private UUID doctorId;
     private LocalDateTime dateTime;
     private AppointmentStatus status;
     private String notes;
@@ -20,19 +20,19 @@ public class Appointment {
         this.id = id;
     }
 
-    public Long getPatientId() {
+    public UUID getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(UUID patientId) {
         this.patientId = patientId;
     }
 
-    public Long getDoctorId() {
+    public UUID getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(UUID doctorId) {
         this.doctorId = doctorId;
     }
 
