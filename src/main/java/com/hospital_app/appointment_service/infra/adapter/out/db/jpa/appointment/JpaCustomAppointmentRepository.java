@@ -3,6 +3,7 @@ package com.hospital_app.appointment_service.infra.adapter.out.db.jpa.appointmen
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
 import com.hospital_app.appointment_service.domain.model.Appointment;
 import com.hospital_app.appointment_service.infra.adapter.out.db.jpa.appointment.mapper.JpaAppointmentMapper;
+import com.hospital_app.appointment_service.infra.db.AppointmentDbOperationWrapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -31,13 +32,15 @@ public class JpaCustomAppointmentRepository implements CustomAppointmentReposito
 
     @Override
     public Optional<Appointment> findById(UUID id) {
-        Optional<JpaAppointmentEntity> optionalAppointmentEntity = jpaAppointmentRepository.findById(id);
+        Optional<JpaAppointmentEntity> optionalAppointmentEntity = AppointmentDbOperationWrapper.execute(() -> jpaAppointmentRepository.findById(id));
         return optionalAppointmentEntity.map(jpaAppointmentMapper::toDomain);
     }
 
     private Appointment save(Appointment appointment) {
-        JpaAppointmentEntity entity = jpaAppointmentMapper.toEntity(appointment);
-        JpaAppointmentEntity createdAppointment = jpaAppointmentRepository.save(entity);
+        JpaAppointmentEntity createdAppointment = AppointmentDbOperationWrapper.execute(() -> {
+            JpaAppointmentEntity entity = jpaAppointmentMapper.toEntity(appointment);
+            return jpaAppointmentRepository.save(entity);
+        });
         return jpaAppointmentMapper.toDomain(createdAppointment);
     }
 

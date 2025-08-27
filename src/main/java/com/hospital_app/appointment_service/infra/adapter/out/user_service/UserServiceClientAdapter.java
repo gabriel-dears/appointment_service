@@ -1,8 +1,8 @@
-package com.hospital_app.appointment_service.infra.adapter.in.out.user_service;
+package com.hospital_app.appointment_service.infra.adapter.out.user_service;
 
 import com.hospital_app.appointment_service.application.exception.UserServiceException;
 import com.hospital_app.appointment_service.application.port.out.user_service.UserServiceClientPort;
-import com.hospital_app.appointment_service.infra.adapter.in.out.user_service.dto.UserExistsDto;
+import com.hospital_app.appointment_service.infra.adapter.out.user_service.dto.UserExistsDto;
 import com.hospital_app.appointment_service.infra.service.TokenExtractor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
