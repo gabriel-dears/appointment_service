@@ -5,6 +5,10 @@ FROM maven:3.9.8-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
+# Copy common first
+COPY common /app/common
+RUN mvn -f /app/common/pom.xml clean install -DskipTests
+
 # Copy jwt_security_common first
 COPY jwt_security_common /app/jwt_security_common
 RUN mvn -f /app/jwt_security_common/pom.xml clean install -DskipTests
