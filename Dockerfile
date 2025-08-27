@@ -35,4 +35,4 @@ EXPOSE 8080 5005
 
 ENV JAVA_OPTS="-Xms256m -Xmx512m"
 
-ENTRYPOINT ["sh", "-c", "if [ \"$DEBUG\" = 'true' ]; then java $JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005 -jar app.jar; else java $JAVA_OPTS -jar app.jar; fi"]
+ENTRYPOINT ["sh", "-c", "if [ \"$ENABLE_REMOTE_DEBUG\" = 'true' ]; then java $JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005 -jar app.jar; else java $JAVA_OPTS -jar app.jar; fi"]
