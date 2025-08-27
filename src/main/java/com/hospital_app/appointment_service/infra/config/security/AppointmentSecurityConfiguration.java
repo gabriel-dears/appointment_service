@@ -28,9 +28,9 @@ public class AppointmentSecurityConfiguration {
                                 "/swagger-ui/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/appointment/mine").hasAnyRole("PATIENT", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/appointment").hasAnyRole("NURSE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/appointment").hasAnyRole("NURSE", "DOCTOR", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/appointment").hasAnyRole("NURSE", "DOCTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/appointment/**").hasAnyRole("DOCTOR", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/appointment/**").hasAnyRole("NURSE", "DOCTOR", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oAuth2Customizer)

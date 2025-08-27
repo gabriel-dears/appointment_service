@@ -13,4 +13,8 @@ public interface AppointmentApi {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
+    default ResponseEntity<AppointmentResponseDto> updateAppointment(@RequestBody @Valid CreateAppointmentRequestDto requestDto) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
 }
