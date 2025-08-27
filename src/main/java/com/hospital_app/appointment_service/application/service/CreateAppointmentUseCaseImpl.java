@@ -26,6 +26,7 @@ public class CreateAppointmentUseCaseImpl implements CreateAppointmentUseCase {
         // TODO: After create and update flows
         // TODO: Think about how to consult information -> don't expose anything in the appointment-service, only via appointment-history
         // TODO: Stop exposing ports via docker for the internal service and expose kong port only... as well as config it accordingly
+        // TODO: Swagger documentation
     }
 
     private void validate(Appointment appointment) {
