@@ -1,4 +1,4 @@
-package com.hospital_app.appointment_service.application.service;
+package com.hospital_app.appointment_service.application.service.appointment;
 
 import com.hospital_app.appointment_service.application.port.in.appointment.CreateAppointmentUseCase;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;

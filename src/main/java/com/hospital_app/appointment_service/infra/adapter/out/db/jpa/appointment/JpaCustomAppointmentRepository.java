@@ -5,6 +5,9 @@ import com.hospital_app.appointment_service.domain.model.Appointment;
 import com.hospital_app.appointment_service.infra.adapter.out.db.jpa.appointment.mapper.JpaAppointmentMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class JpaCustomAppointmentRepository implements CustomAppointmentRepository {
 
@@ -24,6 +27,12 @@ public class JpaCustomAppointmentRepository implements CustomAppointmentReposito
     @Override
     public Appointment update(Appointment appointment) {
         return save(appointment);
+    }
+
+    @Override
+    public Optional<Appointment> findById(UUID id) {
+        Optional<JpaAppointmentEntity> optionalAppointmentEntity = jpaAppointmentRepository.findById(id);
+        return optionalAppointmentEntity.map(jpaAppointmentMapper::toDomain);
     }
 
     private Appointment save(Appointment appointment) {
