@@ -24,7 +24,6 @@ public class CreateAppointmentUseCaseImpl implements CreateAppointmentUseCase {
 
         // TODO: Send message to kafka: notification and appointment-history service after create and update flows
         // TODO: Think about how to consult information -> don't expose anything in the appointment-service, only via appointment-history
-        // TODO: Create common module... Exception handling, logging, ...
     }
 
     private void validate(Appointment appointment) {
