@@ -5,6 +5,10 @@ FROM maven:3.9.8-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
+# Copy proto_repo first
+COPY proto_repo /app/proto_repo
+RUN mvn -f /app/proto_repo/pom.xml clean install -DskipTests
+
 # Copy common first
 COPY common /app/common
 RUN mvn -f /app/common/pom.xml clean install -DskipTests

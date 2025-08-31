@@ -8,6 +8,7 @@ import com.hospital_app.appointment_service.application.service.appointment.Crea
 import com.hospital_app.appointment_service.domain.exception.DoctorNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.PatientNotFoundException;
 import com.hospital_app.appointment_service.domain.model.Appointment;
+import com.hospital_app.common.message.dto.AppointmentMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -71,7 +72,7 @@ class CreateAppointmentUseCaseImplTest {
         when(userServiceClientPort.isDoctorValid(any(UUID.class))).thenReturn(true);
         when(userServiceClientPort.isPatientValid(any(UUID.class))).thenReturn(true);
         when(customAppointmentRepository.create(any(Appointment.class))).thenReturn(appointment);
-        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
+//        doNothing().when(appointmentQueuePort).sendAppointment(any(AppointmentMessage.class));
         Appointment createdAppointment = createAppointmentUseCase.execute(appointment);
         assertNotNull(createdAppointment);
     }

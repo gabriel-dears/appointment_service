@@ -1,8 +1,8 @@
 package com.hospital_app.appointment_service.infra.adapter.out.message;
 
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
-import com.hospital_app.appointment_service.domain.model.Appointment;
 import com.hospital_app.appointment_service.infra.config.message.rabbitmq.RabbitMQConfig;
+import com.hospital_app.common.message.dto.AppointmentMessage;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ public class AppointmentProducer implements AppointmentQueuePort {
     }
 
     @Override
-    public void sendAppointment(Appointment appointment) {
+    public void sendAppointment(AppointmentMessage appointmentMessage) {
         rabbitTemplate.convertAndSend(
                 RabbitMQConfig.TRANSCRIPTION_EXCHANGE,
                 "",
-                appointment
+                appointmentMessage
         );
     }
 

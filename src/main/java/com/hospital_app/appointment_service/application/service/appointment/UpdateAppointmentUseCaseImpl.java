@@ -3,6 +3,7 @@ package com.hospital_app.appointment_service.application.service.appointment;
 import com.hospital_app.appointment_service.application.mapper.AppointmentMapper;
 import com.hospital_app.appointment_service.application.port.in.appointment.UpdateAppointmentUseCase;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
+import com.hospital_app.appointment_service.application.port.out.message.AppointmentMessageComposerPort;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.InvalidAppointmentDateTimeException;
@@ -15,10 +16,12 @@ public class UpdateAppointmentUseCaseImpl implements UpdateAppointmentUseCase {
 
     private final CustomAppointmentRepository customAppointmentRepository;
     private final AppointmentQueuePort appointmentQueuePort;
+    private final AppointmentMessageComposerPort appointmentMessageComposerPort;
 
-    public UpdateAppointmentUseCaseImpl(CustomAppointmentRepository customAppointmentRepository, AppointmentQueuePort appointmentQueuePort) {
+    public UpdateAppointmentUseCaseImpl(CustomAppointmentRepository customAppointmentRepository, AppointmentQueuePort appointmentQueuePort, AppointmentMessageComposerPort appointmentMessageComposerPort) {
         this.customAppointmentRepository = customAppointmentRepository;
         this.appointmentQueuePort = appointmentQueuePort;
+        this.appointmentMessageComposerPort = appointmentMessageComposerPort;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class UpdateAppointmentUseCaseImpl implements UpdateAppointmentUseCase {
             throw new InvalidAppointmentDateTimeException("The new appointment date time must be after the existing appointment date time");
         }
         var updatedAppointment = customAppointmentRepository.update(AppointmentMapper.fromInputToExistingAppointmentForUpdate(appointment, existingAppointment));
-        appointmentQueuePort.sendAppointment(updatedAppointment);
+        appointmentQueuePort.sendAppointment(appointmentMessageComposerPort.compose(updatedAppointment));
         return updatedAppointment;
     }
 }

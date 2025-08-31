@@ -24,3 +24,9 @@ springdoc:
   swagger-ui:
     config-url: /appointment-service/v3/api-docs/swagger-config
     url: /appointment-service/v3/api-docs
+
+grpc:
+  client:
+    user-service:
+      address: "static://user-service:9090"
+      negotiation-type: plaintext

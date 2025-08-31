@@ -74,7 +74,7 @@ class UpdateAppointmentUseCaseImplTest {
         existingAppointment.setDateTime(LocalDateTime.now().minusDays(1));
         when(customAppointmentRepository.findById(any(UUID.class))).thenReturn(Optional.of(existingAppointment));
         when(customAppointmentRepository.update(any(Appointment.class))).thenReturn(existingAppointment);
-        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
+//        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
         Appointment updatedUser = updateAppointmentUseCase.execute(inputAppointment, id);
         assertNotNull(updatedUser);
     }
