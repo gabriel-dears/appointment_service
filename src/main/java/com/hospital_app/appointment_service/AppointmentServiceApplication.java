@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.hospital_app", "com.hospital_app.jwt_security_common"})
+@ComponentScan(basePackages = {"com.hospital_app"})
 public class AppointmentServiceApplication {
 
     public static void main(String[] args) {
