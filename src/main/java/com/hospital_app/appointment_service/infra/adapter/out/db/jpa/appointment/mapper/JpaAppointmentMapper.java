@@ -14,6 +14,7 @@ public class JpaAppointmentMapper {
                 appointment.getDoctorId(),
                 appointment.getDateTime(),
                 appointment.getStatus(),
+                appointment.getVersion(),
                 appointment.getNotes()
         );
     }
@@ -24,6 +25,7 @@ public class JpaAppointmentMapper {
         appointment.setDoctorId(jpaAppointmentEntity.getDoctorId());
         appointment.setPatientId(jpaAppointmentEntity.getPatientId());
         appointment.setDateTime(jpaAppointmentEntity.getDateTime());
+        appointment.setVersion(jpaAppointmentEntity.getVersion());
         appointment.setStatus(jpaAppointmentEntity.getStatus());
         appointment.setNotes(jpaAppointmentEntity.getNotes());
         return appointment;

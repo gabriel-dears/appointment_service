@@ -4,7 +4,6 @@ import com.hospital_app.appointment_service.domain.model.Appointment;
 import com.hospital_app.appointment_service.infra.adapter.in.controller.dto.AppointmentResponseDto;
 import com.hospital_app.appointment_service.infra.adapter.in.controller.dto.CreateAppointmentRequestDto;
 import com.hospital_app.appointment_service.infra.adapter.in.controller.dto.UpdateAppointmentRequestDto;
-import jakarta.validation.Valid;
 
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +32,7 @@ public class DtoAppointmentMapper {
         );
     }
 
-    public static Appointment toDomain(@Valid UpdateAppointmentRequestDto updateAppointmentUseCase) {
+    public static Appointment toDomain(UpdateAppointmentRequestDto updateAppointmentUseCase) {
         Appointment appointment = new Appointment();
         appointment.setStatus(updateAppointmentUseCase.status());
         appointment.setNotes(updateAppointmentUseCase.notes());

@@ -40,8 +40,19 @@ public class JpaAppointmentEntity {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
+    @Version
+    private Long version;
+
     @NotBlank(message = "Notes are required")
     @Size(max = 1000, message = "Notes cannot exceed 1000 characters")
     private String notes;
+
+    @PrePersist
+    public void prePersist() {
+        if (version == null) {
+            version = 1L;
+        }
+    }
+
 
 }

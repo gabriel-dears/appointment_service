@@ -12,6 +12,7 @@ public class Appointment implements Serializable {
     private LocalDateTime dateTime;
     private AppointmentStatus status;
     private String notes;
+    private Long version;
 
     public UUID getId() {
         return id;
@@ -59,5 +60,13 @@ public class Appointment implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
