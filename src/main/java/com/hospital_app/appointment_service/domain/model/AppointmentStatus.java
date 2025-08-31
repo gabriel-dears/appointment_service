@@ -1,6 +1,8 @@
 package com.hospital_app.appointment_service.domain.model;
 
-public enum AppointmentStatus {
+import java.io.Serializable;
+
+public enum AppointmentStatus implements Serializable {
     CREATED,      // Appointment scheduled but not yet confirmed
     CONFIRMED,    // Appointment confirmed
     COMPLETED,    // Appointment finished successfully
