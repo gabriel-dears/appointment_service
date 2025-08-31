@@ -1,6 +1,7 @@
 package com.hospital_app.appointment_service.application.service.appointment;
 
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
+import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.InvalidAppointmentDateTimeException;
 import com.hospital_app.appointment_service.domain.model.Appointment;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +27,9 @@ class UpdateAppointmentUseCaseImplTest {
 
     @Mock
     private CustomAppointmentRepository customAppointmentRepository;
+
+    @Mock
+    private AppointmentQueuePort appointmentQueuePort;
 
     @InjectMocks
     private UpdateAppointmentUseCaseImpl updateAppointmentUseCase;
@@ -69,6 +74,7 @@ class UpdateAppointmentUseCaseImplTest {
         existingAppointment.setDateTime(LocalDateTime.now().minusDays(1));
         when(customAppointmentRepository.findById(any(UUID.class))).thenReturn(Optional.of(existingAppointment));
         when(customAppointmentRepository.update(any(Appointment.class))).thenReturn(existingAppointment);
+        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
         Appointment updatedUser = updateAppointmentUseCase.execute(inputAppointment, id);
         assertNotNull(updatedUser);
     }

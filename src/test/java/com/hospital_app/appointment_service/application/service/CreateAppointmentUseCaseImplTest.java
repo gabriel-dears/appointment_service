@@ -2,6 +2,7 @@ package com.hospital_app.appointment_service.application.service;
 
 import com.hospital_app.appointment_service.application.exception.UserServiceException;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
+import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.application.port.out.user_service.UserServiceClientPort;
 import com.hospital_app.appointment_service.application.service.appointment.CreateAppointmentUseCaseImpl;
 import com.hospital_app.appointment_service.domain.exception.DoctorNotFoundException;
@@ -28,6 +29,9 @@ class CreateAppointmentUseCaseImplTest {
 
     @Mock
     private UserServiceClientPort userServiceClientPort;
+
+    @Mock
+    private AppointmentQueuePort appointmentQueuePort;
 
     @InjectMocks
     private CreateAppointmentUseCaseImpl createAppointmentUseCase;
@@ -67,6 +71,7 @@ class CreateAppointmentUseCaseImplTest {
         when(userServiceClientPort.isDoctorValid(any(UUID.class))).thenReturn(true);
         when(userServiceClientPort.isPatientValid(any(UUID.class))).thenReturn(true);
         when(customAppointmentRepository.create(any(Appointment.class))).thenReturn(appointment);
+        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
         Appointment createdAppointment = createAppointmentUseCase.execute(appointment);
         assertNotNull(createdAppointment);
     }
