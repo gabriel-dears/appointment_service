@@ -1,11 +1,13 @@
 package com.hospital_app.appointment_service.application.service.appointment;
 
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
+import com.hospital_app.appointment_service.application.port.out.message.AppointmentMessageComposerPort;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.InvalidAppointmentDateTimeException;
 import com.hospital_app.appointment_service.domain.model.Appointment;
 import com.hospital_app.appointment_service.domain.model.AppointmentStatus;
+import com.hospital_app.common.message.dto.AppointmentMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +32,9 @@ class UpdateAppointmentUseCaseImplTest {
 
     @Mock
     private AppointmentQueuePort appointmentQueuePort;
+
+    @Mock
+    private AppointmentMessageComposerPort appointmentMessageComposerPort;
 
     @InjectMocks
     private UpdateAppointmentUseCaseImpl updateAppointmentUseCase;
@@ -74,7 +79,8 @@ class UpdateAppointmentUseCaseImplTest {
         existingAppointment.setDateTime(LocalDateTime.now().minusDays(1));
         when(customAppointmentRepository.findById(any(UUID.class))).thenReturn(Optional.of(existingAppointment));
         when(customAppointmentRepository.update(any(Appointment.class))).thenReturn(existingAppointment);
-//        doNothing().when(appointmentQueuePort).sendAppointment(any(Appointment.class));
+        when(appointmentMessageComposerPort.compose(any(Appointment.class))).thenReturn(new AppointmentMessage());
+        doNothing().when(appointmentQueuePort).sendAppointment(any(AppointmentMessage.class));
         Appointment updatedUser = updateAppointmentUseCase.execute(inputAppointment, id);
         assertNotNull(updatedUser);
     }
