@@ -19,8 +19,29 @@ public class UpdateAppointmentInputValidatorImpl implements UpdateAppointmentInp
     }
 
     public void validate(Appointment existingAppointment, Appointment appointment) {
+        validateNotesAndDateTimeInput(appointment, existingAppointment);
         UpdateAppointmentInputValidationFactory.getValidation(existingAppointment.getStatus()).validate(existingAppointment, appointment);
         validateDateTimeRange(existingAppointment, appointment);
+    }
+
+    private void validateNotesAndDateTimeInput(Appointment appointment, Appointment existingAppointment) {
+
+        String notes = appointment.getNotes();
+        LocalDateTime dateTime = appointment.getDateTime();
+        boolean sameStatus = existingAppointment.getStatus() == appointment.getStatus();
+
+        if (sameStatus && dateTimeAndNotesAreEmpty(notes, dateTime)) {
+            throw new InvalidAppointmentUpdate("If the status is not updated, either 'notes' or the appointment 'dateTime' must be provided.");
+        }
+
+    }
+
+    private static boolean dateTimeAndNotesAreEmpty(String notes, LocalDateTime dateTime) {
+        return notesIsEmpty(notes) && dateTime == null;
+    }
+
+    private static boolean notesIsEmpty(String notes) {
+        return notes == null || notes.isBlank();
     }
 
     private void validateDateTimeRange(Appointment existingAppointment, Appointment appointment) {

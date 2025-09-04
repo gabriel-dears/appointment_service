@@ -8,7 +8,9 @@ public class AppointmentMapper {
         if (appointment.getDateTime() != null) {
             existingAppointment.setDateTime(appointment.getDateTime());
         }
-        existingAppointment.setNotes(appointment.getNotes());
+        if(appointment.getNotes() != null) {
+            existingAppointment.setNotes(appointment.getNotes());
+        }
         existingAppointment.setStatus(appointment.getStatus());
         return existingAppointment;
     }

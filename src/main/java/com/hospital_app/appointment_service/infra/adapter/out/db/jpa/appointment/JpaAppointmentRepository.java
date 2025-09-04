@@ -16,7 +16,7 @@ public interface JpaAppointmentRepository extends JpaRepository<JpaAppointmentEn
                 FROM JpaAppointmentEntity a
                 WHERE (a.doctorId = :doctorId OR a.patientId = :patientId)
                 AND a.dateTime BETWEEN :startRange AND :endRange
-                AND a.status IN ('CONFIRMED', 'CREATED')
+                AND a.status IN ('CONFIRMED', 'CREATED', 'COMPLETED')
             """)
     boolean existsDateTimeConflict(@Param("doctorId") UUID doctorId,
                                    @Param("patientId") UUID patientId,
@@ -24,13 +24,13 @@ public interface JpaAppointmentRepository extends JpaRepository<JpaAppointmentEn
                                    @Param("endRange") LocalDateTime endRange);
 
     @Query("""
-    SELECT COUNT(a) > 0
-    FROM JpaAppointmentEntity a
-    WHERE a.id <> :appointmentId
-      AND (a.doctorId = :doctorId OR a.patientId = :patientId)
-      AND a.dateTime BETWEEN :startRange AND :endRange
-      AND a.status IN ('CONFIRMED', 'CREATED')
-""")
+                SELECT COUNT(a) > 0
+                FROM JpaAppointmentEntity a
+                WHERE a.id <> :appointmentId
+                  AND (a.doctorId = :doctorId OR a.patientId = :patientId)
+                  AND a.dateTime BETWEEN :startRange AND :endRange
+                  AND a.status IN ('CONFIRMED', 'CREATED', 'COMPLETED')
+            """)
     boolean existsDateTimeConflictDisregardingAppointment(
             @Param("appointmentId") UUID appointmentId,
             @Param("doctorId") UUID doctorId,
