@@ -2,6 +2,7 @@ package com.hospital_app.appointment_service.infra.exception;
 
 import com.hospital_app.appointment_service.application.exception.InvalidAppointmentCreate;
 import com.hospital_app.appointment_service.application.exception.InvalidAppointmentUpdate;
+import com.hospital_app.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.DoctorNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.InvalidAppointmentDateTimeException;
 import com.hospital_app.appointment_service.domain.exception.PatientNotFoundException;
@@ -17,7 +18,8 @@ public class GlobalExceptionHandler extends GlobalExceptionHandlerBase {
 
     @ExceptionHandler(value = {
             PatientNotFoundException.class,
-            DoctorNotFoundException.class
+            DoctorNotFoundException.class,
+            AppointmentNotFoundException.class
     })
     @Override
     public ResponseEntity<ErrorResponse> handleInputNotFoundErrors(
