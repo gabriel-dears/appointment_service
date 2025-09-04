@@ -2,6 +2,7 @@ package com.hospital_app.appointment_service.infra.adapter.out.db.jpa.appointmen
 
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
 import com.hospital_app.appointment_service.domain.model.Appointment;
+import com.hospital_app.appointment_service.domain.model.AppointmentStatus;
 import com.hospital_app.appointment_service.infra.adapter.out.db.jpa.appointment.mapper.JpaAppointmentMapper;
 import com.hospital_app.appointment_service.infra.db.AppointmentDbOperationWrapper;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,7 @@ public class JpaCustomAppointmentRepository implements CustomAppointmentReposito
 
     @Override
     public Appointment create(Appointment appointment) {
+        appointment.setStatus(AppointmentStatus.CREATED);
         return save(appointment);
     }
 

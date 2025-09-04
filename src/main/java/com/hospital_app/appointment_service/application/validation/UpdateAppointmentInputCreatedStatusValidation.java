@@ -1,0 +1,21 @@
+package com.hospital_app.appointment_service.application.validation;
+
+import com.hospital_app.appointment_service.application.exception.InvalidAppointmentUpdate;
+import com.hospital_app.appointment_service.domain.model.Appointment;
+import com.hospital_app.appointment_service.domain.model.AppointmentStatus;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+
+public class UpdateAppointmentInputCreatedStatusValidation implements UpdateAppointmentInputValidation {
+    @Override
+    public void validate(Appointment existingAppointment, Appointment appointment) {
+
+        Set<AppointmentStatus> invalidStatusSet = Set.of(AppointmentStatus.NO_SHOW, AppointmentStatus.COMPLETED);
+
+        if( invalidStatusSet.contains(appointment.getStatus()) ) {
+            throw new InvalidAppointmentUpdate("Appointment status cannot be changed from CREATED to NO_SHOW or COMPLETED.");
+        }
+
+    }
+}

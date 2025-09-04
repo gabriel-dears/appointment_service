@@ -27,6 +27,7 @@ public class CreateAppointmentUseCaseImpl implements CreateAppointmentUseCase {
     @Override
     public Appointment execute(Appointment appointment) {
         validate(appointment);
+        // TODO: validate -> any appointment in a 30 future and 30 minutes past range for the same doctorId
         var createdAppointment = customAppointmentRepository.create(appointment);
         AppointmentMessage appointmentMessage = appointmentMessageComposerPort.compose(createdAppointment);
         appointmentQueuePort.sendAppointment(appointmentMessage);

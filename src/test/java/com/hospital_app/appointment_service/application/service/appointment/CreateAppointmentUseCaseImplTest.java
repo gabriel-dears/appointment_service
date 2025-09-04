@@ -1,11 +1,10 @@
-package com.hospital_app.appointment_service.application.service;
+package com.hospital_app.appointment_service.application.service.appointment;
 
 import com.hospital_app.appointment_service.application.exception.UserServiceException;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentMessageComposerPort;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.application.port.out.user_service.UserServiceClientPort;
-import com.hospital_app.appointment_service.application.service.appointment.CreateAppointmentUseCaseImpl;
 import com.hospital_app.appointment_service.domain.exception.DoctorNotFoundException;
 import com.hospital_app.appointment_service.domain.exception.PatientNotFoundException;
 import com.hospital_app.appointment_service.domain.model.Appointment;

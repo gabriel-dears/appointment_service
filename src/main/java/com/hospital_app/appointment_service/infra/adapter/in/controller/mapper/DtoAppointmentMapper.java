@@ -15,7 +15,6 @@ public class DtoAppointmentMapper {
         Appointment appointment = new Appointment();
         appointment.setDoctorId(dto.doctorId());
         appointment.setPatientId(dto.patientId());
-        appointment.setStatus(dto.status());
         appointment.setNotes(dto.notes());
         appointment.setDateTime(dto.dateTime());
         return appointment;

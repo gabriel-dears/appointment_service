@@ -15,9 +15,6 @@ public record CreateAppointmentRequestDto(
         @NotNull(message = "Patient id is required")
         UUID patientId,
 
-        @NotNull(message = "Status is required")
-        AppointmentStatus status,
-
         @NotBlank(message = "Notes are required")
         String notes,
 
