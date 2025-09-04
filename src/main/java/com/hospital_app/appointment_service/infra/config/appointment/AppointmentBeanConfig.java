@@ -27,8 +27,8 @@ public class AppointmentBeanConfig {
     }
 
     @Bean
-    UpdateAppointmentInputValidatorPort updateAppointmentInputValidatorPort() {
-        return new UpdateAppointmentInputValidatorImpl();
+    UpdateAppointmentInputValidatorPort updateAppointmentInputValidatorPort(CustomAppointmentRepository customAppointmentRepository) {
+        return new UpdateAppointmentInputValidatorImpl(customAppointmentRepository);
     }
 
 

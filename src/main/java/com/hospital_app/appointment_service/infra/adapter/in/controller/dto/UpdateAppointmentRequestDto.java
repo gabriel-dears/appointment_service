@@ -14,7 +14,6 @@ public record UpdateAppointmentRequestDto(
         @NotBlank(message = "Notes are required")
         String notes,
 
-        @NotNull(message = "Appointment date is required")
         @Future(message = "Appointment date must be in the future")
         LocalDateTime dateTime
 ) {}

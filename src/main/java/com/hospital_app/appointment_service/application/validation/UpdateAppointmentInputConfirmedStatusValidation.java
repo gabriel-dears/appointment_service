@@ -15,16 +15,21 @@ public class UpdateAppointmentInputConfirmedStatusValidation implements UpdateAp
             throw new InvalidAppointmentUpdate("Current appointment status is CONFIRMED and cannot be changed to CREATED. Please, cancel the appointment and create another one.");
         }
 
-        LocalDateTime now = LocalDateTime.now();
-
-        if ((appointment.getDateTime() != null && appointment.getDateTime().isAfter(now)) || existingAppointment.getDateTime().isAfter(now)) {
-            Set<AppointmentStatus> invalidStatusChangeInTheFuture = Set.of(AppointmentStatus.NO_SHOW, AppointmentStatus.COMPLETED);
-            if (invalidStatusChangeInTheFuture.contains(appointment.getStatus())) {
-                throw new InvalidAppointmentUpdate(
-                        "Appointment scheduled for the future cannot be marked as COMPLETED or NO_SHOW."
-                );
-            }
+        if (isDateTimeInTheFuture(existingAppointment, appointment) && isInvalidStatusToBeChangedInTheFuture(appointment)) {
+            throw new InvalidAppointmentUpdate(
+                    "Appointment scheduled for the future cannot be marked as COMPLETED or NO_SHOW."
+            );
         }
 
+    }
+
+    private static boolean isInvalidStatusToBeChangedInTheFuture(Appointment appointment) {
+        Set<AppointmentStatus> invalidStatusChangeInTheFuture = Set.of(AppointmentStatus.NO_SHOW, AppointmentStatus.COMPLETED);
+        return invalidStatusChangeInTheFuture.contains(appointment.getStatus());
+    }
+
+    private static boolean isDateTimeInTheFuture(Appointment existingAppointment, Appointment appointment) {
+        LocalDateTime now = LocalDateTime.now();
+        return (appointment.getDateTime() != null && appointment.getDateTime().isAfter(now)) || existingAppointment.getDateTime().isAfter(now);
     }
 }
