@@ -7,10 +7,9 @@ import com.hospital_app.appointment_service.application.port.out.db.CustomAppoin
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentMessageComposerPort;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
 import com.hospital_app.appointment_service.domain.exception.AppointmentNotFoundException;
-import com.hospital_app.appointment_service.domain.exception.InvalidAppointmentDateTimeException;
 import com.hospital_app.appointment_service.domain.model.Appointment;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class UpdateAppointmentUseCaseImpl implements UpdateAppointmentUseCase {
@@ -30,9 +29,26 @@ public class UpdateAppointmentUseCaseImpl implements UpdateAppointmentUseCase {
     @Override
     public Appointment execute(Appointment appointment, UUID id) {
         Appointment existingAppointment = customAppointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(String.format("Appointment with id %s not found", id)));
-        updateAppointmentInputValidatorPort.validate(existingAppointment, appointment);
-        var updatedAppointment = customAppointmentRepository.update(AppointmentMapper.fromInputToExistingAppointmentForUpdate(appointment, existingAppointment));
-        appointmentQueuePort.sendAppointment(appointmentMessageComposerPort.compose(updatedAppointment));
-        return updatedAppointment;
+        if (shouldExecuteUpdate(appointment, existingAppointment)) {
+            updateAppointmentInputValidatorPort.validate(existingAppointment, appointment);
+            var updatedAppointment = customAppointmentRepository.update(AppointmentMapper.fromInputToExistingAppointmentForUpdate(appointment, existingAppointment));
+            appointmentQueuePort.sendAppointment(appointmentMessageComposerPort.compose(updatedAppointment));
+            return updatedAppointment;
+        }
+        return existingAppointment;
     }
+
+    private boolean shouldExecuteUpdate(Appointment appointment, Appointment existingAppointment) {
+
+        if (appointment.getStatus() != existingAppointment.getStatus()) {
+            return true;
+        }
+
+        if (!Objects.equals(appointment.getNotes(), existingAppointment.getNotes())) {
+            return true;
+        }
+
+        return appointment.getDateTime() != existingAppointment.getDateTime() && appointment.getDateTime() != null;
+    }
+
 }
