@@ -1,4 +1,4 @@
-package com.hospital_app.appointment_service.application.validation;
+package com.hospital_app.appointment_service.application.validation.update;
 
 import com.hospital_app.appointment_service.domain.model.Appointment;
 

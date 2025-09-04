@@ -1,4 +1,4 @@
-package com.hospital_app.appointment_service.application.validation;
+package com.hospital_app.appointment_service.application.validation.update;
 
 import com.hospital_app.appointment_service.application.exception.InvalidAppointmentUpdate;
 import com.hospital_app.appointment_service.domain.model.Appointment;
@@ -7,8 +7,12 @@ public class UpdateAppointmentInputCompletedStatusValidation implements UpdateAp
     @Override
     public void validate(Appointment existingAppointment, Appointment appointment) {
 
-        if( existingAppointment.getStatus() != appointment.getStatus() ) {
+        if (existingAppointment.getStatus() != appointment.getStatus()) {
             throw new InvalidAppointmentUpdate("Current appointment status cannot be changed.");
+        }
+
+        if (appointment.getDateTime() != null) {
+            throw new InvalidAppointmentUpdate("Current appointment status cannot be changed when updating to COMPLETED status.");
         }
 
     }

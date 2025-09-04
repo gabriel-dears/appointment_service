@@ -3,7 +3,7 @@ package com.hospital_app.appointment_service.infra.adapter.in.controller.validat
 import com.hospital_app.appointment_service.application.exception.InvalidAppointmentUpdate;
 import com.hospital_app.appointment_service.application.port.in.validator.UpdateAppointmentInputValidatorPort;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
-import com.hospital_app.appointment_service.application.validation.UpdateAppointmentInputValidationFactory;
+import com.hospital_app.appointment_service.application.validation.update.UpdateAppointmentInputValidationFactory;
 import com.hospital_app.appointment_service.domain.model.Appointment;
 import org.springframework.stereotype.Component;
 

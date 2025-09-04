@@ -2,11 +2,11 @@ package com.hospital_app.appointment_service.infra.config.appointment;
 
 import com.hospital_app.appointment_service.application.port.in.appointment.CreateAppointmentUseCase;
 import com.hospital_app.appointment_service.application.port.in.appointment.UpdateAppointmentUseCase;
+import com.hospital_app.appointment_service.application.port.in.validator.CreateAppointmentInputValidatorPort;
 import com.hospital_app.appointment_service.application.port.in.validator.UpdateAppointmentInputValidatorPort;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentMessageComposerPort;
 import com.hospital_app.appointment_service.application.port.out.message.AppointmentQueuePort;
-import com.hospital_app.appointment_service.application.port.out.user_service.UserServiceClientPort;
 import com.hospital_app.appointment_service.application.service.appointment.CreateAppointmentUseCaseImpl;
 import com.hospital_app.appointment_service.application.service.appointment.UpdateAppointmentUseCaseImpl;
 import com.hospital_app.appointment_service.infra.adapter.in.controller.validation.UpdateAppointmentInputValidatorImpl;
@@ -17,8 +17,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppointmentBeanConfig {
 
     @Bean
-    CreateAppointmentUseCase createAppointmentUseCase(CustomAppointmentRepository customAppointmentRepository, UserServiceClientPort userServiceClientPort, AppointmentQueuePort appointmentQueuePort, AppointmentMessageComposerPort appointmentMessageComposerPort) {
-        return new CreateAppointmentUseCaseImpl(customAppointmentRepository, userServiceClientPort, appointmentQueuePort, appointmentMessageComposerPort);
+    CreateAppointmentUseCase createAppointmentUseCase(CustomAppointmentRepository customAppointmentRepository, AppointmentQueuePort appointmentQueuePort, AppointmentMessageComposerPort appointmentMessageComposerPort, CreateAppointmentInputValidatorPort createAppointmentInputValidatorPort) {
+        return new CreateAppointmentUseCaseImpl(customAppointmentRepository, appointmentQueuePort, appointmentMessageComposerPort, createAppointmentInputValidatorPort);
     }
 
     @Bean
