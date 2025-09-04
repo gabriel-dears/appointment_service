@@ -1,6 +1,6 @@
 package com.hospital_app.appointment_service.infra.adapter.in.controller.validation;
 
-import com.hospital_app.appointment_service.application.exception.InvalidAppointmentUpdate;
+import com.hospital_app.appointment_service.application.exception.InvalidAppointmentCreate;
 import com.hospital_app.appointment_service.application.port.in.validator.CreateAppointmentInputValidatorPort;
 import com.hospital_app.appointment_service.application.port.out.db.CustomAppointmentRepository;
 import com.hospital_app.appointment_service.application.port.out.user_service.UserServiceClientPort;
@@ -43,7 +43,7 @@ public class CreateAppointmentInputValidatorImpl implements CreateAppointmentInp
                         dateTimeInput
                 )
         ) {
-            throw new InvalidAppointmentUpdate(
+            throw new InvalidAppointmentCreate(
                     "The requested appointment time is unavailable. Either the doctor or the patient already has an appointment within 30 minutes of this time."
             );
 
