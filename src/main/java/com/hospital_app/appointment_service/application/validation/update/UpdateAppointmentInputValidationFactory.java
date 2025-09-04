@@ -11,8 +11,8 @@ public class UpdateAppointmentInputValidationFactory {
 
     static {
 
-        VALIDATION_MAP.put(AppointmentStatus.CREATED, new UpdateAppointmentInputConfirmedStatusValidation());
-        VALIDATION_MAP.put(AppointmentStatus.CONFIRMED, new UpdateAppointmentInputCreatedStatusValidation());
+        VALIDATION_MAP.put(AppointmentStatus.CREATED, new UpdateAppointmentInputCreatedStatusValidation());
+        VALIDATION_MAP.put(AppointmentStatus.CONFIRMED, new UpdateAppointmentInputConfirmedStatusValidation());
         VALIDATION_MAP.put(AppointmentStatus.NO_SHOW, new UpdateAppointmentInputNoShowStatusValidation());
         VALIDATION_MAP.put(AppointmentStatus.CANCELLED, new UpdateAppointmentInputCancelledStatusValidation());
         VALIDATION_MAP.put(AppointmentStatus.COMPLETED, new UpdateAppointmentInputCompletedStatusValidation());
