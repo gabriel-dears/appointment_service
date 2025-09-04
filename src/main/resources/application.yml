@@ -22,8 +22,8 @@ spring:
 user-service-url: http://user-service:8080
 springdoc:
   swagger-ui:
-    config-url: /appointment-service/v3/api-docs/swagger-config
-    url: /appointment-service/v3/api-docs
+    config-url: /appointments/v3/api-docs/swagger-config
+    url: /appointments/v3/api-docs
 
 grpc:
   client:

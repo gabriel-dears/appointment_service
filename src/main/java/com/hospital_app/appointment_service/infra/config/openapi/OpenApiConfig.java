@@ -15,7 +15,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .servers(List.of(
-                        new Server().url("http://localhost:8000/appointment-service")
+                        new Server().url("http://localhost:8000/appointments")
                                 .description("Kong Gateway")
                 ))
                 .info(new Info().title("Appointment Service API")
