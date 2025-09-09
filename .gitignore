@@ -33,3 +33,4 @@ build/
 .vscode/
 
 /src/main/resources/rabbitmq
+/src/main/resources/tls
