@@ -15,9 +15,17 @@ spring:
     show-sql: true
   rabbitmq:
     host: rabbitmq
-    port: 5672
+    port: 5671
     username: guest
     password: guest
+    ssl:
+      enabled: true
+      algorithm: TLSv1.2
+      validate-server-certificate: true
+      key-store: classpath:rabbitmq/client_keystore.p12  # convert client.key+client.crt into PKCS12
+      key-store-password: changeit
+      trust-store: classpath:rabbitmq/truststore.p12     # contains CA cert
+      trust-store-password: changeit
 
 user-service-url: http://user-service:8080
 springdoc:
