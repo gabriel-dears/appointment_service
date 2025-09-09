@@ -14,20 +14,20 @@ spring:
         dialect: ${HOSPITAL_APP_APPOINTMENT_SERVICE_DB_DIALECT}
     show-sql: true
   rabbitmq:
-    host: rabbitmq
-    port: 5671
-    username: guest
-    password: guest
+    host: ${HOSPITAL_APP_RABBITMQ_HOST}
+    port: ${HOSPITAL_APP_RABBITMQ_PORT}
+    username: ${HOSPITAL_APP_RABBITMQ_USER}
+    password: ${HOSPITAL_APP_RABBITMQ_PASS}
     ssl:
-      enabled: true
-      algorithm: TLSv1.2
-      validate-server-certificate: true
-      key-store: classpath:rabbitmq/client_keystore.p12  # convert client.key+client.crt into PKCS12
-      key-store-password: changeit
-      trust-store: classpath:rabbitmq/truststore.p12     # contains CA cert
-      trust-store-password: changeit
+      enabled: ${HOSPITAL_APP_RABBITMQ_SSL_ENABLED}
+      algorithm: ${HOSPITAL_APP_RABBITMQ_SSL_ALGO}
+      validate-server-certificate: ${HOSPITAL_APP_RABBITMQ_SSL_VALIDATE}
+      key-store: ${HOSPITAL_APP_RABBITMQ_KEYSTORE}
+      key-store-password: ${HOSPITAL_APP_RABBITMQ_KEYSTORE_PASS}
+      trust-store: ${HOSPITAL_APP_RABBITMQ_TRUSTSTORE}
+      trust-store-password: ${HOSPITAL_APP_RABBITMQ_TRUSTSTORE_PASS}
 
-user-service-url: http://user-service:8080
+user-service-url: ${HOSPITAL_APP_USER_SERVICE_URL}
 springdoc:
   swagger-ui:
     config-url: /appointments/v3/api-docs/swagger-config
@@ -39,11 +39,6 @@ grpc:
       address: static://user-service:9090
       negotiation-type: TLS
       security:
-        certificate-chain: classpath:tls/appointment_service.crt
-        private-key: classpath:tls/appointment_service_pkcs8.key
-        trust-cert-collection: classpath:tls/ca.crt
-
-
-logging:
-  level:
-    io.grpc.netty: DEBUG
+        certificate-chain: ${HOSPITAL_APP_APPOINTMENT_SERVICE_CRT}
+        private-key: ${HOSPITAL_APP_APPOINTMENT_SERVICE_KEY}
+        trust-cert-collection: ${HOSPITAL_APP_APPOINTMENT_SERVICE_CA}
