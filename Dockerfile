@@ -30,13 +30,27 @@ RUN mvn -f /app/appointment_service/pom.xml clean package -DskipTests
 # =========================
 FROM openjdk:21-jdk-slim
 
+# Install curl + CA certs so we can fetch grpcurl
+USER root
+RUN apt-get update && apt-get install -y curl ca-certificates && rm -rf /var/lib/apt/lists/*
+
+# Download grpcurl binary
+RUN curl -L https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz \
+    | tar -xz -C /usr/local/bin \
+    && chmod +x /usr/local/bin/grpcurl
+
+# Create non-root user
 RUN groupadd --gid 1000 appgroup \
     && useradd --uid 1000 --gid appgroup --shell /bin/sh --create-home appuser
 
 WORKDIR /app
 
 COPY --from=build /app/appointment_service/target/appointment_service-0.0.1-SNAPSHOT.jar app.jar
-RUN chown appuser:appgroup /app/app.jar
+
+# Copy TLS files if needed
+COPY appointment_service/src/main/resources/tls /app/tls
+RUN chown -R appuser:appgroup /app/tls /app/app.jar
+
 USER appuser
 
 EXPOSE 8080 5005

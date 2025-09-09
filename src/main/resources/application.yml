@@ -28,5 +28,14 @@ springdoc:
 grpc:
   client:
     user-service:
-      address: "static://user-service:9090"
-      negotiation-type: plaintext
+      address: static://user-service:9090
+      negotiation-type: TLS
+      security:
+        certificate-chain: classpath:tls/appointment_service.crt
+        private-key: classpath:tls/appointment_service_pkcs8.key
+        trust-cert-collection: classpath:tls/ca.crt
+
+
+logging:
+  level:
+    io.grpc.netty: DEBUG
