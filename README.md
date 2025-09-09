@@ -31,8 +31,8 @@ There are two common ways to run this service.
 - Prerequisites: Docker and Docker Compose
 - From the repo root, copy .env as needed and run:
   docker compose up -d appointment-service appointment-service-db rabbitmq
-- The service will be available on: http://localhost:8082
-- Swagger UI: http://localhost:8082/swagger-ui/index.html
+- The service will be available on: http://localhost:8000/appointments
+- Swagger UI: http://localhost:8000/appointments/swagger-ui/index.html
 - PostgreSQL (service DB): localhost:5435 (mapped to container 5432)
 
 Note: appointment-service depends on the User Service (for gRPC). For full functionality (user validation) you should also run user-service and its DB:
